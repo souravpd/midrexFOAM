@@ -41,7 +41,18 @@ Description
 #include "simpleControl.H"
 #include "fvOptions.H"
 #include "multiComponentMixture.H"
-//#include "psiReactionThermo.H"
+#include "psiReactionThermo.H"
+#include "psiThermo.H"
+//#include "psiCombustionModel.H"
+#include "CombustionModel.H"
+#include "turbulentFluidThermoModel.H"
+#include "fixedGradientFvPatchFields.H"
+#include "pressureControl.H"
+#include "coordinateSystem.H"
+#include "fixedFluxPressureFvPatchScalarField.H"
+#include "multivariateScheme.H"
+#include "fvcSmooth.H"
+#include "localEulerDdtScheme.H"
 
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
@@ -173,10 +184,6 @@ int main(int argc, char *argv[])
     }
 
     Info<< "End\n" << endl;
-
-
-
-
     Info<< "End\n" << endl;
 
     return 0;
