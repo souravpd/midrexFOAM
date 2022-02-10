@@ -8,12 +8,6 @@ tmp<fv::convectionScheme<scalar>> mvConvection
     )
 );
 
-dimensionedScalar massTransGas[5];
-massTransGas[0] = massTransGasCO;
-massTransGas[1] = massTransGasCO2;
-massTransGas[2] = massTransGasH2;
-massTransGas[3] = massTransGasH2O;
-massTransGas[4] = massTransGasCH4;
 {
    // reaction->correct();
     volScalarField Yt(0.0*YGas[0]);
@@ -23,14 +17,12 @@ massTransGas[4] = massTransGasCH4;
 
 
             Info << "solving YGas" << YGas[i] << nl;
-            Info << "massTransGas" << massTransGas[i] << nl;
             volScalarField& YiGas = YGas[i];
-
             fvScalarMatrix YiGasEqn
             (
               mvConvection->fvmDiv(phi, YiGas)
               ==
-              fvm::laplacian(massTransGas[i], YiGas) 
+              fvm::laplacian(massTransGasCO, YiGas) 
             );
 
             YiGasEqn.relax();

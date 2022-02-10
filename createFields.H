@@ -101,13 +101,9 @@ dimensionedScalar massTransGasCH4
 (  
      transportProperties.lookup("massTransGasCH4")
 );
-// //Creating massTransArray
-// PtrList<dimensionedScalar> massTransGas;
-// massTransGas.append(massTransGasCO);
-// massTransGas.append(massTransGasCO2);
-// massTransGas.append(massTransGasH2);
-// massTransGas.append(massTransGasH2O);
-// massTransGas.append(massTransGasCH4);
+
+Info << massTransGasCH4 << endl;
+
 //READING INDIVIDUAL MASS FRACTIONS FOR THE SPECIES
 
 Info << "Reading CO \n" ;
