@@ -14,15 +14,15 @@ tmp<fv::convectionScheme<scalar>> mvConvection
 
     forAll(YGas, i)
     {
+
+            Info << "solving YGas" << YGas[i] << nl;
             volScalarField& YiGas = YGas[i];
 
             fvScalarMatrix YiGasEqn
             (
-               mvConvection->fvmDiv(phi, YiGas)
-             - fvm::laplacian(massTransGas, YiGas) 
-            // ==
-              //  reaction->R(YiGas)
-              // + fvOptions(rhoGas, YiGas)
+              mvConvection->fvmDiv(phi, YiGas)
+              ==
+              fvm::laplacian(massTransGas, YiGas) 
             );
 
             YiGasEqn.relax();

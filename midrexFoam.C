@@ -167,7 +167,7 @@ int main(int argc, char *argv[])
             #include "pEqn.H"
             #include "TEqn.H"
             #include "TSolidEqn.H"
-            // #include "YGasEqn.H"
+            #include "YGasEqn.H"
             // #include "YSolidEqn.H"
         }
 
