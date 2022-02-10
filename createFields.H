@@ -196,7 +196,7 @@ PtrList<volScalarField> &YGas = tmp_ptr_list;
 multivariateSurfaceInterpolationScheme<scalar>:: fieldTable fields;
 
 forAll(YGas , i){
-    Info<<"Composition of the gas is" << YGas[i] << endl;
+    // Info<<"Composition of the gas is" << YGas[i] << endl;
     fields.add(YGas[i]);
 }
 

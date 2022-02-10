@@ -15,7 +15,7 @@ tmp<fv::convectionScheme<scalar>> mvConvection
     {
 
 
-            Info << "solving YGas" << YGas[i] << nl;
+            // Info << "solving YGas" << YGas[i] << nl;
             volScalarField& YiGas = YGas[i];
             fvScalarMatrix YiGasEqn
             (
