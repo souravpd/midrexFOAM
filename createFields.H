@@ -81,28 +81,34 @@ dimensionedScalar heffGas
 );
 
 //Reading Individual MassTrans Constants
-dimensionedScalar massTransGasCO
-(  
-     transportProperties.lookup("massTransGasCO")
-);
-dimensionedScalar massTransGasCO2
-(  
-     transportProperties.lookup("massTransGasCO2")
-);
-dimensionedScalar massTransGasH2
-(  
-     transportProperties.lookup("massTransGasH2")
-);
-dimensionedScalar massTransGasH2O
-(  
-     transportProperties.lookup("massTransGasH2O")
-);
-dimensionedScalar massTransGasCH4
-(  
-     transportProperties.lookup("massTransGasCH4")
-);
+// dimensionedScalar massTransGasCO
+// (  
+//      transportProperties.lookup("massTransGasCO")
+// );
+// dimensionedScalar massTransGasCO2
+// (  
+//      transportProperties.lookup("massTransGasCO2")
+// );
+// dimensionedScalar massTransGasH2
+// (  
+//      transportProperties.lookup("massTransGasH2")
+// );
+// dimensionedScalar massTransGasH2O
+// (  
+//      transportProperties.lookup("massTransGasH2O")
+// );
+// dimensionedScalar massTransGasCH4
+// (  
+//      transportProperties.lookup("massTransGasCH4")
+// );
 
-Info << massTransGasCH4 << endl;
+//Temp Fix
+double vals[5];
+vals[0] = 1.5e-4;
+vals[1] = 1e-4;
+vals[2] = 2e-4;
+vals[3] = 1e-4;
+vals[4] = 2e-4;
 
 //READING INDIVIDUAL MASS FRACTIONS FOR THE SPECIES
 

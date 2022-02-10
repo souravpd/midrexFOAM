@@ -7,7 +7,6 @@ tmp<fv::convectionScheme<scalar>> mvConvection
         mesh.divScheme("div(phi,Yi_h)")
     )
 );
-
 {
    // reaction->correct();
     volScalarField Yt(0.0*YGas[0]);
@@ -22,7 +21,7 @@ tmp<fv::convectionScheme<scalar>> mvConvection
             (
               mvConvection->fvmDiv(phi, YiGas)
               ==
-              fvm::laplacian(massTransGasCO, YiGas) 
+              fvm::laplacian(dimensionedScalar("massTransGas", dimensionSet(0, 2, -1, 0, 0), vals[i]), YiGas) 
             );
 
             YiGasEqn.relax();
