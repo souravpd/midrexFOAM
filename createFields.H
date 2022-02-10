@@ -80,12 +80,34 @@ dimensionedScalar heffGas
     transportProperties.lookup("heffGas")
 );
 
-
-dimensionedScalar massTransGas
+//Reading Individual MassTrans Constants
+dimensionedScalar massTransGasCO
 (  
-     transportProperties.lookup("massTransGas")
+     transportProperties.lookup("massTransGasCO")
 );
-
+dimensionedScalar massTransGasCO2
+(  
+     transportProperties.lookup("massTransGasCO2")
+);
+dimensionedScalar massTransGasH2
+(  
+     transportProperties.lookup("massTransGasH2")
+);
+dimensionedScalar massTransGasH2O
+(  
+     transportProperties.lookup("massTransGasH2O")
+);
+dimensionedScalar massTransGasCH4
+(  
+     transportProperties.lookup("massTransGasCH4")
+);
+// //Creating massTransArray
+// PtrList<dimensionedScalar> massTransGas;
+// massTransGas.append(massTransGasCO);
+// massTransGas.append(massTransGasCO2);
+// massTransGas.append(massTransGasH2);
+// massTransGas.append(massTransGasH2O);
+// massTransGas.append(massTransGasCH4);
 //READING INDIVIDUAL MASS FRACTIONS FOR THE SPECIES
 
 Info << "Reading CO \n" ;
