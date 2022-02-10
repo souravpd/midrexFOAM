@@ -8,7 +8,6 @@ tmp<fv::convectionScheme<scalar>> mvConvection
     )
 );
 
-int counter = 0;
 dimensionedScalar massTransGas[5];
 massTransGas[0] = massTransGasCO;
 massTransGas[1] = massTransGasCO2;
@@ -24,7 +23,7 @@ massTransGas[4] = massTransGasCH4;
 
 
             Info << "solving YGas" << YGas[i] << nl;
-            Info << "massTransGas" << massTransGas[counter++] << nl;
+            Info << "massTransGas" << massTransGas[i] << nl;
             volScalarField& YiGas = YGas[i];
 
             fvScalarMatrix YiGasEqn
