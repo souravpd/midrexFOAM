@@ -81,34 +81,34 @@ dimensionedScalar heffGas
 );
 
 //Reading Individual MassTrans Constants
-// dimensionedScalar massTransGasCO
-// (  
-//      transportProperties.lookup("massTransGasCO")
-// );
-// dimensionedScalar massTransGasCO2
-// (  
-//      transportProperties.lookup("massTransGasCO2")
-// );
-// dimensionedScalar massTransGasH2
-// (  
-//      transportProperties.lookup("massTransGasH2")
-// );
-// dimensionedScalar massTransGasH2O
-// (  
-//      transportProperties.lookup("massTransGasH2O")
-// );
-// dimensionedScalar massTransGasCH4
-// (  
-//      transportProperties.lookup("massTransGasCH4")
-// );
+dimensionedScalar massTransGasCO
+(  
+     transportProperties.lookup("massTransGasCO")
+);
+dimensionedScalar massTransGasCO2
+(  
+     transportProperties.lookup("massTransGasCO2")
+);
+dimensionedScalar massTransGasH2
+(  
+     transportProperties.lookup("massTransGasH2")
+);
+dimensionedScalar massTransGasH2O
+(  
+     transportProperties.lookup("massTransGasH2O")
+);
+dimensionedScalar massTransGasCH4
+(  
+     transportProperties.lookup("massTransGasCH4")
+);
 
-//Temp Fix
-double vals[5];
-vals[0] = 1.5e-4;
-vals[1] = 1e-4;
-vals[2] = 2e-4;
-vals[3] = 1e-4;
-vals[4] = 2e-4;
+// //Temp Fix
+// double vals[5];
+// vals[0] = 1.5e+4;
+// vals[1] = 1e+4;
+// vals[2] = 2e+4;
+// vals[3] = 1e+4;
+// vals[4] = 2e+4;
 
 //READING INDIVIDUAL MASS FRACTIONS FOR THE SPECIES
 
@@ -183,22 +183,22 @@ volScalarField CH4
 );
 
 
-PtrList<volScalarField> tmp_ptr_list;
-tmp_ptr_list.append(CO);
-tmp_ptr_list.append(CO2);
-tmp_ptr_list.append(H2);
-tmp_ptr_list.append(H2O);
-tmp_ptr_list.append(CH4);
+// PtrList<volScalarField> tmp_ptr_list;
+// tmp_ptr_list.append(CO);
+// tmp_ptr_list.append(CO2);
+// tmp_ptr_list.append(H2);
+// tmp_ptr_list.append(H2O);
+// tmp_ptr_list.append(CH4);
 
 
-PtrList<volScalarField> &YGas = tmp_ptr_list;
+// PtrList<volScalarField> &YGas = tmp_ptr_list;
 
-multivariateSurfaceInterpolationScheme<scalar>:: fieldTable fields;
+// multivariateSurfaceInterpolationScheme<scalar>:: fieldTable fields;
 
-forAll(YGas , i){
-    // Info<<"Composition of the gas is" << YGas[i] << endl;
-    fields.add(YGas[i]);
-}
+// forAll(YGas , i){
+//     // Info<<"Composition of the gas is" << YGas[i] << endl;
+//     fields.add(YGas[i]);
+// }
 
 // fields.add(thermo.he());
 
