@@ -1,33 +1,35 @@
 {
-  //  reaction->correct();
-    volScalarField Yt(0.0*YSolid[0]);
+    volScalarField Yt(0.0*Fe);
+    // ==============Fe==============
+    Info << "Solving for Fe" << endl;
+    fvScalarMatrix FeSolidEqn
+    (
+      mvConvection->fvmDiv(phi, Fe)
+      ==
+      -amountConsumed
+    );
 
-    forAll(YSolid, i)
-    {
-            volScalarField& YiSolid = YSolid[i];
+    FeSolidEqn.relax();
+    fvOptions.constrain(FeSolidEqn);
+    FeSolidEqn.solve("Fe");
 
-            fvScalarMatrix YiSolidEqn
-            (
-               mvConvection->fvmDiv(phi, YiSolid)
-              
-            // ==
-              //  reaction->R(YiSolid)
-              
-            );
+    fvOptions.correct(Fe);
+    Fe.max(0.0);
+    Yt = Yt + Fe;
 
-            YiSolidEqn.relax();
+    // =====================FeO================
+    Info << "Solving for FeO" << endl;
+    fvScalarMatrix FeOSolidEqn
+    (
+      mvConvection->fvmDiv(phi, FeO)
+      ==
+      amountConsumed
+    );
 
-            fvOptions.constrain(YiSolidEqn);
-
-            YiSolidEqn.solve("YiSolid");
-
-            fvOptions.correct(YiSolid);
-
-            YiSolid.max(0.0);
-            Yt += YiSolid;
-        
-    }
-
-    //YSolid[inertIndex] = scalar(1) - Yt;
-    //YSolid[inertIndex].max(0.0);
+    FeOSolidEqn.relax();
+    fvOptions.constrain(FeOSolidEqn);
+    FeOSolidEqn.solve("FeO");
+    fvOptions.correct(FeO);
+    FeO.max(0.0);
+    Yt = Yt + FeO;
 }

@@ -43,7 +43,6 @@ Description
 #include "multiComponentMixture.H"
 #include "psiReactionThermo.H"
 #include "psiThermo.H"
-//#include "psiCombustionModel.H"
 #include "CombustionModel.H"
 #include "turbulentFluidThermoModel.H"
 #include "fixedGradientFvPatchFields.H"
@@ -160,7 +159,6 @@ int main(int argc, char *argv[])
     while (simple.loop(runTime))
     {
         Info<< "Time = " << runTime.timeName() << nl << endl;
-    
         // --- Pressure-velocity SIMPLE corrector
         {
             #include "UEqn.H"
@@ -168,7 +166,7 @@ int main(int argc, char *argv[])
             #include "TEqn.H"
             #include "TSolidEqn.H"
             #include "YGasEqn.H"
-            // #include "YSolidEqn.H"
+            #include "YSolidEqn.H"
         }
 
         laminarTransport.correct();
