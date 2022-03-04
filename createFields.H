@@ -104,7 +104,6 @@ dimensionedScalar massTransGasCH4
 
 
 //READING INDIVIDUAL MASS FRACTIONS FOR THE SPECIES
-
 Info << "Reading CO \n" ;
 volScalarField CO
 (
@@ -167,36 +166,6 @@ volScalarField CH4
     IOobject 
     (
         "CH4",
-        runTime.timeName(),
-        mesh,
-        IOobject::MUST_READ,
-        IOobject::AUTO_WRITE
-    ),
-    mesh
-);
-
-//Create Solid Fields
-
-Info << "Reading Fe \n" ;
-volScalarField Fe
-(
-    IOobject 
-    (
-        "Fe",
-        runTime.timeName(),
-        mesh,
-        IOobject::MUST_READ,
-        IOobject::AUTO_WRITE
-    ),
-    mesh
-);
-
-Info << "Reading FeO \n" ;
-volScalarField FeO
-(
-    IOobject 
-    (
-        "FeO",
         runTime.timeName(),
         mesh,
         IOobject::MUST_READ,
@@ -361,4 +330,6 @@ autoPtr<incompressible::turbulenceModel> turbulence
 );
 
 #include "createFvOptions.H"
-tmp<fvScalarMatrix> amountConsumed(CO);
+
+
+

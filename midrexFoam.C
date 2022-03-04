@@ -41,7 +41,6 @@ Description
 #include "simpleControl.H"
 #include "fvOptions.H"
 #include "multiComponentMixture.H"
-#include "psiReactionThermo.H"
 #include "psiThermo.H"
 #include "CombustionModel.H"
 #include "turbulentFluidThermoModel.H"
@@ -52,7 +51,6 @@ Description
 #include "multivariateScheme.H"
 #include "fvcSmooth.H"
 #include "localEulerDdtScheme.H"
-
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
@@ -166,7 +164,7 @@ int main(int argc, char *argv[])
             #include "TEqn.H"
             #include "TSolidEqn.H"
             #include "YGasEqn.H"
-            #include "YSolidEqn.H"
+            // #include "YSolidEqn.H"
         }
 
         laminarTransport.correct();

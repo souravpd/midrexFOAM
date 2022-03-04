@@ -54,7 +54,6 @@ tmp<fv::convectionScheme<scalar>> mvConvection
         mvConvection->fvmDiv(phi , H2)
         ==
         fvm::laplacian(massTransGasH2 , H2)
-        + amountConsumed
     );
 
     H2GasEqn.relax();
@@ -73,7 +72,6 @@ tmp<fv::convectionScheme<scalar>> mvConvection
         mvConvection->fvmDiv(phi , H2O)
         ==
         fvm::laplacian(massTransGasH2O , H2O)
-        -amountConsumed
     );
 
     H2OGasEqn.relax();

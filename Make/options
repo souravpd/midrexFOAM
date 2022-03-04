@@ -34,4 +34,5 @@ EXE_LIBS = \
     -lcombustionModels \
     -lincompressibleTurbulenceModels \
     -lfiniteVolume \
-    -lreactionThermophysicalModels 
+    -lreactionThermophysicalModels \
+    -lchemistryModel
