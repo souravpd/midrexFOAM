@@ -1,4 +1,142 @@
 //Create Fluid Fields
+#include "createRDeltaT.H"
+Info<< "Reading transportProperties\n" << endl;
+
+IOdictionary transportProperties
+(
+    IOobject
+    (
+        "transportProperties",
+        runTime.constant(),
+        mesh,
+        IOobject::MUST_READ_IF_MODIFIED,
+        IOobject::NO_WRITE
+    )
+);
+
+
+
+Info<< "end of reading Transport Properties\n" << endl;
+Info<< "Reading solid Diffusion Properties\n" << endl;
+IOdictionary solidTransportProperties
+(
+    IOobject
+    (
+        "solidTransportProperties",
+        runTime.constant(),
+        mesh,
+        IOobject::MUST_READ_IF_MODIFIED,
+        IOobject::NO_WRITE
+    )
+);
+
+ 
+
+//IOdictionary::toc() : table of contents
+const wordList solidComponentNameList(solidTransportProperties.toc());
+
+PtrList<solidComponent> solidComponentList(solidComponentNameList.size());
+
+//for divSchemes later on
+//multivariateSurfaceInterpolationScheme<scalar>::fieldTable gasComponentFields;
+
+forAll(solidComponentNameList, i)
+{
+    const word& solidComponentName = solidComponentNameList[i];
+    const dictionary& solidComponentDict = solidTransportProperties.subDict(solidComponentName);
+
+    solidComponentList.set
+    (
+        i,
+        new solidComponent
+        (
+            solidComponentDict,
+            mesh
+        )
+    );
+
+
+}
+
+
+
+
+
+
+Info<< "Reading gas Diffusion Properties\n" << endl;
+IOdictionary gasTransportProperties
+(
+    IOobject
+    (
+        "gasTransportProperties",
+        runTime.constant(),
+        mesh,
+        IOobject::MUST_READ_IF_MODIFIED,
+        IOobject::NO_WRITE
+    )
+);
+
+ 
+
+//IOdictionary::toc() : table of contents
+const wordList gasComponentNameList(gasTransportProperties.toc());
+
+PtrList<gasComponent> gasComponentList(gasComponentNameList.size());
+
+//for divSchemes later on
+//multivariateSurfaceInterpolationScheme<scalar>::fieldTable gasComponentFields;
+
+forAll(gasComponentNameList, i)
+{
+    const word& gasComponentName = gasComponentNameList[i];
+    const dictionary& gasComponentDict = gasTransportProperties.subDict(gasComponentName);
+
+    gasComponentList.set
+    (
+        i,
+        new gasComponent
+        (
+            gasComponentDict,
+            mesh
+        )
+    );
+}
+
+
+
+
+
+//    gasComponentFields.add(gasComponentList[i]);
+
+
+
+//    Info<< "\nDiffusion = " << gasComponentList[0].name() << endl;
+/*
+Info<< "Reading thermophysical properties of gas\n" << endl;
+autoPtr<rhoReactionThermo> pThermo(rhoReactionThermo::New(Mesh));
+rhoReactionThermo& thermo = pThermo();
+thermo.validate(args.executable(), "h", "e");
+
+basicSpecieMixture& compositionGas = thermo.composition();
+PtrList<volScalarField>& YGas = compositionGas.Y();
+
+const word inertSpecieGas(thermo.lookup("inertSpecieGas"));
+if (!compositiona.species().found(inertSpecieGas))
+{
+    FatalIOErrorIn(args.executable().c_str(), thermo)
+        << "Inert specie " << inertSpecieGas << " not found in available species "
+        << compositiona.species()
+        << exit(FatalIOError);
+}
+
+multivariateSurfaceInterpolationScheme<scalar>::fieldTable fields;
+
+forAll(YGas, i)
+{
+    fields.add(YGas[i]);
+}
+fields.add(thermo.he());*/
+
 Info<< "Reading field pFluid\n" << endl;
 volScalarField p
 (
@@ -56,19 +194,6 @@ volScalarField T
     mesh
 );
 
-Info<< "Reading transportProperties\n" << endl;
-
-IOdictionary transportProperties
-(
-    IOobject
-    (
-        "transportProperties",
-        runTime.constant(),
-        mesh,
-        IOobject::MUST_READ_IF_MODIFIED,
-        IOobject::NO_WRITE
-    )
-);
 
 dimensionedScalar DTGas
 (
@@ -79,101 +204,28 @@ dimensionedScalar heffGas
 (
     transportProperties.lookup("heffGas")
 );
+/*
+Info<< "Reading thermophysical properties of Solid\n" << endl;
+basicSpecieMixture& compositionSolid = thermo.compositionb();
+PtrList<volScalarField>& YSolid = compositionSolid.Y();
 
-//Reading Individual MassTrans Constants
-dimensionedScalar massTransGasCO
-(  
-     transportProperties.lookup("massTransGasCO")
-);
-dimensionedScalar massTransGasCO2
-(  
-     transportProperties.lookup("massTransGasCO2")
-);
-dimensionedScalar massTransGasH2
-(  
-     transportProperties.lookup("massTransGasH2")
-);
-dimensionedScalar massTransGasH2O
-(  
-     transportProperties.lookup("massTransGasH2O")
-);
-dimensionedScalar massTransGasCH4
-(  
-     transportProperties.lookup("massTransGasCH4")
-);
+const word inertSpecieSolid(thermo.lookup("inertSpecieSolid"));
+if (!compositionb.species().found(inertSpecieSolid))
+{
+    FatalIOErrorIn(args.executable().c_str(), thermo)
+        << "Inert specie " << inertSpecieSolid << " not found in available species "
+        << compositionb.species()
+        << exit(FatalIOError);
+}
 
 
-//READING INDIVIDUAL MASS FRACTIONS FOR THE SPECIES
-Info << "Reading CO \n" ;
-volScalarField CO
-(
-    IOobject 
-    (
-        "CO",
-        runTime.timeName(),
-        mesh,
-        IOobject::MUST_READ,
-        IOobject::AUTO_WRITE
-    ),
-    mesh
-);
+forAll(YSolid, i)
+{
+    fields.add(YSolid[i]);
+}
+fields.add(thermo.he());
 
-Info << "Reading CO2 \n" ;
-volScalarField CO2
-(
-    IOobject 
-    (
-        "CO2",
-        runTime.timeName(),
-        mesh,
-        IOobject::MUST_READ,
-        IOobject::AUTO_WRITE
-    ),
-    mesh
-);
-
-Info << "Reading H2 \n" ;
-volScalarField H2
-(
-    IOobject 
-    (
-        "H2",
-        runTime.timeName(),
-        mesh,
-        IOobject::MUST_READ,
-        IOobject::AUTO_WRITE
-    ),
-    mesh
-);
-
-Info << "Reading H2O \n" ;
-volScalarField H2O
-(
-    IOobject 
-    (
-        "H2O",
-        runTime.timeName(),
-        mesh,
-        IOobject::MUST_READ,
-        IOobject::AUTO_WRITE
-    ),
-    mesh
-);
-
-Info << "Reading CH4 \n" ;
-volScalarField CH4
-(
-    IOobject 
-    (
-        "CH4",
-        runTime.timeName(),
-        mesh,
-        IOobject::MUST_READ,
-        IOobject::AUTO_WRITE
-    ),
-    mesh
-);
-
+*/
 Info<< "Reading velocity field USolid\n" << endl;
 volVectorField USolid
 (
@@ -328,7 +380,11 @@ autoPtr<incompressible::turbulenceModel> turbulence
 (
     incompressible::turbulenceModel::New(U, phi, laminarTransport)
 );
-
+Info<< "Creating reaction model\n" << endl;
+/*autoPtr<CombustionModel<rhoReactionThermo>> reaction
+(
+    CombustionModel<rhoReactionThermo>::New(thermo, turbulence())
+);*/
 #include "createFvOptions.H"
 
 

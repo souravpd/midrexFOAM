@@ -1,3 +1,6 @@
+solidComponent.C
+gasComponent.C
 midrexFoam.C
+
 
 EXE = $(FOAM_USER_APPBIN)/midrexFoam

@@ -53,11 +53,11 @@
         {
             fvScalarMatrix gasMassTransport
             (
-                  fvm::ddt(gasComponentList[i])
-                + fvm::div(phi, gasComponentList[i], "div(phi,C_gasComponents)")
+                 
+                fvm::div(phi, gasComponentList[i], "div(phi,C_gasComponents)")
                 - fvm::laplacian(gasComponentList[i].D(), gasComponentList[i], "laplacian(D,C_gasComponents)")
             );
 
-            gMassTransport.solve(gasComponentSolveDict);
+            gasMassTransport.solve(gasComponentSolveDict);
         }
 

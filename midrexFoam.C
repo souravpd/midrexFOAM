@@ -40,9 +40,7 @@ Description
 #include "nonOrthogonalSolutionControl.H"
 #include "simpleControl.H"
 #include "fvOptions.H"
-#include "multiComponentMixture.H"
 #include "psiThermo.H"
-#include "CombustionModel.H"
 #include "turbulentFluidThermoModel.H"
 #include "fixedGradientFvPatchFields.H"
 #include "pressureControl.H"
@@ -51,7 +49,9 @@ Description
 #include "multivariateScheme.H"
 #include "fvcSmooth.H"
 #include "localEulerDdtScheme.H"
-
+#include "gasComponent.H"
+#include "solidComponent.H"
+#include "PtrDictionary.H"
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 int main(int argc, char *argv[])
@@ -97,6 +97,8 @@ int main(int argc, char *argv[])
     simpleControl simple(mesh, "simple");
 
     #include "createFields.H"
+   // #include "createFieldRefs.H"
+   
 
     // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
     Info<< nl << "Calculating potential flow" << endl;
@@ -163,8 +165,8 @@ int main(int argc, char *argv[])
             #include "pEqn.H"
             #include "TEqn.H"
             #include "TSolidEqn.H"
-            #include "YGasEqn.H"
-            // #include "YSolidEqn.H"
+            #include "gasMassTransport.H"
+            #include "solidMassTransport.H"
         }
 
         laminarTransport.correct();
@@ -174,6 +176,8 @@ int main(int argc, char *argv[])
        
         T.write();
         TSolid.write();
+      //  solidComponentList.write();
+      //  gasComponentList.write();
         Info<< "ExecutionTime = " << runTime.elapsedCpuTime() << " s"
             << "  ClockTime = " << runTime.elapsedClockTime() << " s"
             << nl << endl;
